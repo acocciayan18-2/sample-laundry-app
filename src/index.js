@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import NewOrder from './pages/NewOrder';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
+import "./style/index.css"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
