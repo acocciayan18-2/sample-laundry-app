@@ -52,17 +52,18 @@ function Orders() {
       {/* Page header */}
       <div className="orders-header">
         <div>
-          <h2>All Orders</h2>
-          <p>Manage and track laundry orders</p>
+          {/* 🔹 Styled Title + Subtitle */}
+          <h2 className="orders-title">All Orders</h2>
+          <p className="orders-subtitle">Manage and track laundry orders</p>
         </div>
 
-       <button
-  className="btn-primary header-btn"
-  onClick={() => navigate("/new-order")}
->
-  <span className="plus-icon">+</span>
-  <span>New Order</span>
-</button>
+        <button
+          className="btn-primary header-btn"
+          onClick={() => navigate("/new-order")}
+        >
+          <span className="plus-icon">+</span>
+          <span>New Order</span>
+        </button>
       </div>
 
       {/* Search + Filters */}
