@@ -1,3 +1,4 @@
+// src/App.js
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,18 +7,19 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Orders from "./pages/Orders";
+import NewOrder from "./pages/NewOrder";
+import SignUp from "./pages/SignUp";
 import AppLayout from "./AppLayout";
 import { AuthProvider } from "./security/AuthContext";
 import ProtectedRoute from "./security/ProtectedRoute";
-import SignUp from "./pages/SignUp";
-import Orders from "./pages/Orders";
 
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Public routes (NO AppLayout) */}
+          {/* Public routes (no layout) */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
 
@@ -25,11 +27,13 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/new-order" element={<NewOrder />} /> {/* ✅ NewOrder */}
               <Route path="/orders" element={<Orders />} />
             </Route>
           </Route>
 
           {/* Default redirect */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

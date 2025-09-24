@@ -4,7 +4,7 @@ import { Outlet, useNavigate, NavLink } from "react-router-dom";
 import { LoginPopup } from "./modal/LoginPopup";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./services/firebase";
-import "./style/dashboard.css"; // reuse sidebar + layout styles
+import "./style/dashboard.css"; // sidebar + layout styles
 
 export default function AppLayout() {
   const [popup, setPopup] = useState({ message: "", type: "" });
@@ -20,7 +20,6 @@ export default function AppLayout() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("User session restored:", user.email);
-        navigate("/dashboard");
       } else {
         console.log("No active session");
         navigate("/login");
@@ -54,32 +53,32 @@ export default function AppLayout() {
           <h6>Main Menu</h6>
           <ul>
             <li>
-              <NavLink to="/dashboard">
+              <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="fas fa-home"></i> Dashboard
               </NavLink>
             </li>
             <li>
-              <NavLink to="/new-order">
+              <NavLink to="/new-order" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="fas fa-plus"></i> New Order
               </NavLink>
             </li>
             <li>
-              <NavLink to="/orders">
+              <NavLink to="/orders" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="fas fa-clipboard-list"></i> Orders
               </NavLink>
             </li>
             <li>
-              <NavLink to="/customers">
+              <NavLink to="/customers" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="fas fa-users"></i> Customers
               </NavLink>
             </li>
             <li>
-              <NavLink to="/services">
+              <NavLink to="/services" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="fas fa-cog"></i> Services
               </NavLink>
             </li>
             <li>
-              <NavLink to="/reports">
+              <NavLink to="/reports" className={({ isActive }) => (isActive ? "active" : "")}>
                 <i className="fas fa-chart-bar"></i> Reports
               </NavLink>
             </li>
@@ -106,11 +105,13 @@ export default function AppLayout() {
       </aside>
 
       {/* Overlay for mobile */}
-      {sidebarOpen && <div className="overlay" onClick={() => setSidebarOpen(false)}></div>}
+      {sidebarOpen && (
+        <div className="overlay" onClick={() => setSidebarOpen(false)}></div>
+      )}
 
       {/* Main Content */}
       <main className="main-content">
-        {/* Burger menu (mobile only via CSS) */}
+        {/* Burger toggle (mobile only, shown via CSS) */}
         <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <i className="fas fa-bars"></i>
         </button>

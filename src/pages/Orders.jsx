@@ -1,6 +1,7 @@
 // src/pages/Orders.jsx
 import React, { useState } from "react";
 import "../style/orders.css";
+import { useNavigate } from "react-router-dom";
 
 const sampleOrders = [
   {
@@ -31,7 +32,15 @@ const sampleOrders = [
 
 function Orders() {
   const [filter, setFilter] = useState("All Orders");
-  const filters = ["All Orders", "Pending", "In Progress", "Ready", "Picked Up"];
+  const navigate = useNavigate();
+
+  const filters = [
+    { name: "All Orders", icon: "fas fa-list" },
+    { name: "Pending", icon: "fas fa-clock" },
+    { name: "In Progress", icon: "fas fa-box" },
+    { name: "Ready", icon: "fas fa-check" },
+    { name: "Picked Up", icon: "fas fa-truck" },
+  ];
 
   const filteredOrders =
     filter === "All Orders"
@@ -39,73 +48,107 @@ function Orders() {
       : sampleOrders.filter((o) => o.status === filter);
 
   return (
-    <>
-      <header>
-        <h2>Orders</h2>
-        <p>Manage and track laundry orders</p>
-        <small>Total Orders: {filteredOrders.length}</small>
-      </header>
+    <div className="orders-page">
+      {/* Page header */}
+      <div className="orders-header">
+        <div>
+          <h2>All Orders</h2>
+          <p>Manage and track laundry orders</p>
+        </div>
 
-      {/* Filters */}
-      <div className="filters">
-        {filters.map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`filter-btn ${filter === f ? "active" : ""}`}
-          >
-            {f}
-          </button>
-        ))}
+       <button
+  className="btn-primary header-btn"
+  onClick={() => navigate("/new-order")}
+>
+  <span className="plus-icon">+</span>
+  <span>New Order</span>
+</button>
+      </div>
+
+      {/* Search + Filters */}
+      <div className="orders-toolbar">
+        <input
+          type="text"
+          placeholder="Search by customer name, phone, or order number..."
+          className="search-bar"
+        />
+        <div className="filters">
+          {filters.map((f) => (
+            <button
+              key={f.name}
+              onClick={() => setFilter(f.name)}
+              className={`filter-btn ${filter === f.name ? "active" : ""}`}
+            >
+              <i className={f.icon}></i> {f.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Orders List */}
       <section className="orders-list">
-        {filteredOrders.length === 0 ? (
-          <div className="empty">
-            <i className="fas fa-tshirt fa-3x"></i>
-            <p>No orders found for this filter</p>
-          </div>
-        ) : (
-          filteredOrders.map((order) => (
-            <div key={order.id} className="order-card">
-              <div className="order-header">
-                <h3>
-                  {order.customer}{" "}
+        {filteredOrders.map((order) => (
+          <div key={order.id} className="order-card">
+            <div className="order-header">
+              {/* Left: avatar + name + status */}
+              <div className="order-left">
+                <div className="avatar">
+                  <i className="fas fa-clock"></i>
+                </div>
+                <div>
+                  <h3>{order.customer}</h3>
                   <span className={`status ${order.status.toLowerCase()}`}>
                     {order.status}
                   </span>
-                </h3>
-                <p className="order-id">Order: {order.id}</p>
+                </div>
               </div>
 
-              <div className="order-details">
-                <p>📞 {order.phone}</p>
-                <p>📍 {order.address}</p>
-                <p>Weight: {order.weight}</p>
-                <p>Date: {order.date}</p>
-                <p>Amount: ₱{order.amount}.00</p>
-                <p>{order.paid ? "✅ Paid" : "❌ Unpaid"}</p>
+              {/* Right: amount + status */}
+              <div className="order-right">
+                <h4>₱{order.amount}.00</h4>
+                <span className={order.paid ? "paid" : "unpaid"}>
+                  {order.paid ? "Paid" : "Unpaid"}
+                </span>
+                <small>{order.date}</small>
               </div>
+            </div>
 
-              <div className="service-details">
-                <strong>Services:</strong>
+            {/* Order Info */}
+            <div className="order-info">
+              <p>
+                <strong>Order:</strong>{" "}
+                <span className="order-id">{order.id}</span>
+              </p>
+              <p>📞 {order.phone}</p>
+              <p>📍 {order.address}</p>
+              <p>
+                Weight: {order.weight} | Services: {order.services.length}
+              </p>
+            </div>
+
+            <hr />
+
+            {/* Services */}
+            <div className="order-services">
+              <strong>Service Details:</strong>
+              <div className="service-box">
                 {order.services.map((s, idx) => (
                   <p key={idx}>
-                    {s.name} – {s.qty} @ {s.rate}
+                    {s.name} — {s.qty} @ {s.rate}
                   </p>
                 ))}
               </div>
-
-              <div className="actions">
-                <button className="btn-primary">Next Stage</button>
-                <button className="btn-outline">Update Status</button>
-              </div>
             </div>
-          ))
-        )}
+
+            {/* Actions */}
+            <div className="order-actions">
+              <button className="btn-primary">Next Stage</button>
+              <button className="btn-outline">Update Status</button>
+            </div>
+          </div>
+        ))}
       </section>
-    </>
+    </div>
   );
 }
 
