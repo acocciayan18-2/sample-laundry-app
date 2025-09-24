@@ -1,141 +1,16 @@
-/* Import Google Font */
-
-
-/* Body Styling */
-html, body {
-  height: 80%;
-  margin: 0;
-  
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f7f7f7;
-}
-
-.login-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
-}
-
-.card {
-  width: 110%;
-  max-width: 500px;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
-  font-size: 25px;
-}
-
-.card p {
-  color: #6c757d;
-  margin-bottom: 1.0rem;
-}
-
-.btn-google {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  padding: 0.5rem 1rem;
-  font-weight: 200;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  transition: background-color 0.2s ease;
-  font-size: 15px;
-}
-
-.btn-google img {
-  width: 15px;
-  margin-right: 8px;
-}
-
-.btn-google:hover {
-  background-color: #f2f2f2;
-}
-
-hr.divider {
-  border: none;
-  border-top: 1px solid #ddd;
-  margin: 1.5rem 0;
-}
-
-.divider-text {
-  margin: 0 10px;
-  color: #6c757d;
-  font-weight: 400;
-  font-size: 15px;
-  padding-top: 0px;
-}
-
-.form-label {
-  font-weight: 500;
-  font-size: 15px;
-}
-
-.btn-primary {
-  background-color: #0066ff;
-  border: none;
-  width: 100%;
-  padding: 0.6rem 0;
-  border-radius: 8px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-  background-color: #59749b;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-}
-
-.footer-links a {
-  color: #0066ff;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-.text-center img {
-  max-width: 120px;
-}
-
-
-.pwd-login-con {
+.pwd-signup-con {
   position: relative;
   width: 100%;
 }
 /* Style the input */
-.pwd-login-con input {
+.pwd-signup-con input {
   width: 100%;
   padding-right: 40px; /* space for the eye button */
   box-sizing: border-box;
 }
 
 /* Eye button inside input */
-.pwd-login-con button {
+.pwd-signup-con button {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -277,5 +152,3 @@ hr.divider {
   border: 1px solid #2d79f3;
   ;
 }
-
-    

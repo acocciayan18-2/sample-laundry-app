@@ -1,0 +1,33 @@
+/* src/style/modal-style/LoginPopup.css */
+.login-popup-con {
+  min-width: 320px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.login-popup-con > div {
+  width: auto;
+  padding: 0;
+}
+
+.login-pop-up-icon > span {
+  margin-right: 1.2rem;
+  text-align: center;
+}
+
+.login-popup-con * {
+  font-size: 0.8rem;
+}
+
+.login-btn-close-popup {
+  opacity: 0.7;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+.login-btn-close-popup:hover { opacity: 1; }
+.login-btn-close-popup:focus { outline: none !important; box-shadow: none !important; }
+
+.login-popup.success { border: 2px solid green; color: green; }
+.login-popup.error   { border: 2px solid red;   color: red; }
