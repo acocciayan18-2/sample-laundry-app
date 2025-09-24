@@ -86,7 +86,7 @@ const handleForgotPassword = async () => {
     );
 
     showPopup("Login successful!", "success");
-    setTimeout(() => navigate("/dashboard"), 1000);
+    setTimeout(() => navigate("/main"), 1000);
   } catch (error) {
     console.error(error);
     showPopup("Invalid email or password.", "error");

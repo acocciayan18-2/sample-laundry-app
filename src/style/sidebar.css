@@ -1,0 +1,65 @@
+/* src/style/sidebar.css */
+
+/*
+  Base styles that are not handled by Tailwind CSS
+  or are for specific, non-utility class designs.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Main container layout */
+.sidebar-container {
+  display: flex;
+  overflow: hidden;
+}
+
+/* Sidebar Specific Styles */
+.sidebar {
+  /* Tailwind handles most of this, but keeping a few custom rules */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-right: #3b83f667 solid 0.1px;
+}
+
+
+.sidebar nav ul li button {
+  display: flex;
+  align-items: center;
+  gap: 13px !important;
+  padding: 5px 16px;
+  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: 0.2s;
+  border-radius: 13px
+}
+
+/* Logo container styling */
+.logo-con {
+  border-bottom: #3b83f667 solid 0.1px;
+}
+
+/* Menu Item Button Styles */
+.nav-page-btn {
+  /* Custom padding to override Tailwind defaults if needed */
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.nav-page-btn:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.nav-page-btn.active {
+  background: linear-gradient(to right, #3b82f6, #4f46e5);
+}
+
+/* Icon and text color for the active menu item */
+.nav-page-btn.active svg {
+  stroke: white;
+}
+
+.nav-page-btn.active p {
+  color: #ffffff;
+}
