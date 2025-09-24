@@ -47,14 +47,29 @@ function Orders() {
       ? sampleOrders
       : sampleOrders.filter((o) => o.status === filter);
 
+  // choose correct avatar icon depending on status
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "Pending":
+        return "fas fa-clock";
+      case "In Progress":
+        return "fas fa-box";
+      case "Ready":
+        return "fas fa-check";
+      case "Picked Up":
+        return "fas fa-check-circle"; // ✅ use check-circle for picked up
+      default:
+        return "fas fa-list";
+    }
+  };
+
   return (
     <div className="orders-page">
       {/* Page header */}
       <div className="orders-header">
         <div>
-          {/* 🔹 Styled Title + Subtitle */}
-          <h2 className="orders-title">All Orders</h2>
-          <p className="orders-subtitle">Manage and track laundry orders</p>
+          <h2>All Orders</h2>
+          <p>Manage and track laundry orders</p>
         </div>
 
         <button
@@ -94,7 +109,7 @@ function Orders() {
               {/* Left: avatar + name + status */}
               <div className="order-left">
                 <div className="avatar">
-                  <i className="fas fa-clock"></i>
+                  <i className={getStatusIcon(order.status)}></i>
                 </div>
                 <div>
                   <h3>{order.customer}</h3>

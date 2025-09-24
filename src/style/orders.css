@@ -10,7 +10,6 @@
   margin-bottom: 25px;
 }
 
-
 .orders-header h2 {
   font-size: 28px;
   font-weight: 700;
@@ -38,6 +37,7 @@
 }
 .orders-header .header-btn:hover {
   background: linear-gradient(90deg, #1e40af, #1e3a8a);
+  color: #fff !important;
 }
 
 .header-btn .plus-icon {
@@ -84,6 +84,11 @@
   background: linear-gradient(90deg, #2563eb, #1e40af);
   border-color: #2563eb;
   color: #fff;
+}
+/* 🔹 New hover for non-active filters */
+.filter-btn:hover {
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563eb;
 }
 
 /* Orders List */
@@ -207,7 +212,6 @@
   padding: 10px 18px;  
 }
 
-
 /* Gradient Buttons */
 .btn-primary {
   background: linear-gradient(90deg, #2563eb, #1e40af);
@@ -223,7 +227,13 @@
 }
 .btn-primary:hover {
   background: linear-gradient(90deg, #1e40af, #1e3a8a);
+  color: #fff !important;   
 }
+.btn-primary:hover * {
+  color: #fff !important;   /* force nested spans/icons to stay white */
+}
+
+/* Outline Buttons (non-blue) */
 .btn-outline {
   background: #fff;
   border: 1px solid #d1d5db;
@@ -237,6 +247,7 @@
   white-space: nowrap;
 }
 .btn-outline:hover {
+  background: rgba(37, 99, 235, 0.08); /* 🔹 light hover */
   border-color: #2563eb;
   color: #2563eb;
 }
