@@ -3,16 +3,11 @@ import React, { useEffect, useState } from "react";
 import "../style/modal-style/LoginPopup.css";
 
 export function LoginPopup({ message, type = "info", onClose }) {
-  const [progress, setProgress] = useState(100); // start at 100%
-
-
-  // FIX SIZING
+  const [progress, setProgress] = useState(100);
 
   useEffect(() => {
     if (message) {
       setProgress(100);
-
-      // Shrink bar every 40ms → ~2 seconds
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev <= 0) {
@@ -23,15 +18,13 @@ export function LoginPopup({ message, type = "info", onClose }) {
           return prev - 2.5;
         });
       }, 50);
-
       return () => clearInterval(interval);
     }
   }, [message, onClose]);
 
   if (!message) return null;
 
-  const borderClass =
-    type === "success" ? "border-success text-success" : "border-danger text-danger";
+  const color = type === "success" ? "green" : "red";
 
   const icon =
     type === "success" ? (
@@ -39,8 +32,8 @@ export function LoginPopup({ message, type = "info", onClose }) {
         xmlns="http://www.w3.org/2000/svg"
         width="18"
         height="18"
-        fill="currentColor"
-        className="bi bi-check-circle me-2"
+        fill={color}
+        className="me-2"
         viewBox="0 0 16 16"
       >
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -51,8 +44,8 @@ export function LoginPopup({ message, type = "info", onClose }) {
         xmlns="http://www.w3.org/2000/svg"
         width="18"
         height="18"
-        fill="currentColor"
-        className="bi bi-exclamation-circle me-2"
+        fill={color}
+        className="me-2"
         viewBox="0 0 16 16"
       >
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 0 0 8 0a8 8 0 0 0 0 16" />
@@ -62,33 +55,49 @@ export function LoginPopup({ message, type = "info", onClose }) {
 
   return (
     <div
-  className="position-fixed top-0 start-50 translate-middle-x mt-3 flex-row login-popup-con"
-  style={{ zIndex: 9999999 }}
->
-  <div
-    className={`toast show bg-white shadow-sm border-1 rounded overflow-hidden position-relative ${borderClass}`}
-    role="alert"
-  >
-    {/* Close Button */} <p className="position-absolute top-0 end-0 m-1 login-btn-close-popup focus-ring-0" aria-label="Close" onClick={onClose} r ><svg xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem" fill="currentColor" class="bi bi-xl" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/> </svg></p>
+      className="position-fixed top-0 start-50 translate-middle-x mt-3 flex-row login-popup-con"
+      style={{ zIndex: 9999999 }}
+    >
+      <div
+        className="toast show bg-white shadow-sm border-1 rounded overflow-hidden position-relative"
+        role="alert"
+        style={{ borderColor: color }}
+      >
+        {/* Close Button */}
+        <p
+          className="position-absolute top-0 end-0 m-1 login-btn-close-popup focus-ring-0"
+          aria-label="Close"
+          onClick={onClose}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1.7rem"
+            height="1.7rem"
+            fill={color}
+            viewBox="0 0 16 16"
+          >
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+          </svg>
+        </p>
 
-    {/* Message with Icon */}
-    <div className="toast-body d-flex align-items-center justify-content-center login-pop-up-icon">
-      {icon}
-      <span>{message}</span>
+        {/* Message with Icon */}
+        <div className="toast-body d-flex align-items-center justify-content-center login-pop-up-icon">
+          {icon}
+          <span style={{ color }} className="text-base pr-2">{message}</span>
+        </div>
+
+        {/* Progress Bar */}
+        <div
+          className="progress-bar"
+          style={{
+            height: "2px",
+            background: "none",
+            backgroundColor: color,
+            width: `${progress}%`,
+            transition: "width 40ms linear",
+          }}
+        ></div>
+      </div>
     </div>
-
-    {/* Progress Bar */}
-    <div
-      className={`progress-bar ${type}`}
-      style={{
-        height: "2px",
-        backgroundColor: type === "success" ? "green" : "red",
-        width: `${progress}%`,
-        transition: "width 40ms linear",
-      }}
-    ></div>
-  </div>
-</div>
-
   );
 }

@@ -9,7 +9,7 @@ import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginPopup } from "../modal/LoginPopup";
-import "../style/signup.css"
+import "../style/signup.css";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -47,8 +47,8 @@ export default function SignUp() {
       setGeneratedOtp(otp);
 
       await emailjs.send(
-        "service_j61dqwv",
-        "template_jijquaz",
+        "service_161dqwv",
+        "template_1ijquaz",
         { email: adminEmail, otp },
         "evCxW5Fmv_kR4q8gh"
       );
@@ -123,7 +123,7 @@ export default function SignUp() {
           "Signup successful! Please check your email to verify your account before logging in.",
         type: "success",
       });
-      
+
       // Reset state
       e.target.email.value = "";
       setPassword("");
@@ -135,29 +135,41 @@ export default function SignUp() {
     }
   };
 
+  // Replace your checkIcon with this:
   const checkIcon = (met) => (
-    <span
-      style={{ color: met ? "green" : "red", marginRight: "5px" }}
-      dangerouslySetInnerHTML={{
-        __html: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
-            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-          </svg>`,
-      }}
-    />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1rem"
+      height="1rem"
+      viewBox="0 0 16 16"
+      className={met ? "text-green" : "text-red-500"}
+      fill={met ? "#22c55e" : "#ef4444"}
+    >
+      <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0" />
+      <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+    </svg>
   );
 
   return (
-    <div className="login-container">
+    <div className="signup-container ">
       <LoginPopup
         message={popup.message}
         type={popup.type}
         onClose={closePopup}
       />
 
-      <div className="card">
-        <h3 className="text-center">Create Admin Account</h3>
-        <p className="text-center">Sign up with OTP verification</p>
+      <div className="signup-card">
+        <div className="flex justify-center items-center w-full">
+          <div className="mb-3 flex justify-center items-center w-14 h-14 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl  overflow-hidden">
+            <img
+              src="/images/lolafeslaundry-logo-transparent.png"
+              alt="Logo"
+              className="max-w-full max-h-full"
+            />
+          </div>
+        </div>
+        <h3 className="text-center text-3xl font-extrabold text-gray-800 mb-1">Create Admin Account</h3>
+        <p className="text-center">Sign up with a secure password and OTP verification.</p>
 
         <form onSubmit={handleSignup}>
           <div className="mb-3 text-start">
@@ -165,9 +177,16 @@ export default function SignUp() {
               Admin Email
             </label>
             <div class="inputForm mb-3 text-start">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
-  <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
-</svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1.4rem"
+                height="1.4rem"
+                fill="currentColor"
+                class="bi bi-at"
+                viewBox="0 0 16 16"
+              >
+                <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914" />
+              </svg>
               <input
                 type="email"
                 class="input"
@@ -199,13 +218,13 @@ export default function SignUp() {
               </svg>
               <input
                 type={showPassword ? "text" : "password"}
-                    id="password"
-                    className="input"
-                    placeholder="Enter your password"
-                    required
-                    autocomplete="off"
-                     value={password}
-                      onChange={handlePasswordChange}
+                id="password"
+                className="input"
+                placeholder="Enter your password"
+                required
+                autocomplete="off"
+                value={password}
+                onChange={handlePasswordChange}
               />
 
               <button
@@ -244,26 +263,34 @@ export default function SignUp() {
           </div>
 
           <div className="mb-3 text-start" style={{ position: "relative" }}>
-           
-            
-            
-            
-
             {password && (
-              <ul
-                style={{
-                  fontSize: "0.9em",
-                  marginTop: "5px",
-                  listStyle: "none",
-                  paddingLeft: 0,
-                }}
-              >
-                <li>{checkIcon(criteria.length)} At least 6 characters</li>
-                <li>
+              <ul className="mt-1 list-none p-0">
+                <li
+                  className={`flex items-center gap-1 text-sm ${
+                    criteria.length ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {checkIcon(criteria.length)} At least 6 characters
+                </li>
+                <li
+                  className={`flex items-center gap-1 text-sm ${
+                    criteria.uppercase ? "text-green-500" : "text-red-500"
+                  }`}
+                >
                   {checkIcon(criteria.uppercase)} At least 1 uppercase letter
                 </li>
-                <li>{checkIcon(criteria.number)} At least 1 number</li>
-                <li>
+                <li
+                  className={`flex items-center gap-1 text-sm ${
+                    criteria.number ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {checkIcon(criteria.number)} At least 1 number
+                </li>
+                <li
+                  className={`flex items-center gap-1 text-sm ${
+                    criteria.special ? "text-green-500" : "text-red-500"
+                  }`}
+                >
                   {checkIcon(criteria.special)} At least 1 special character
                 </li>
               </ul>
@@ -288,19 +315,19 @@ export default function SignUp() {
 
           <button
             type="submit"
-            className="btn-primary"
+            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium px-4 py-2 rounded shadow cursor-pointer"
             disabled={!isPasswordValid}
           >
             {otpSent ? "Complete Signup" : "Send OTP"}
           </button>
         </form>
 
-        <div className="text-center mt-3">
-          <p>
+        <div className="text-left mt-3">
+          <p className="text-sm">
             Already have an account?{" "}
             <button
               onClick={() => navigate("/login")}
-              className="btn-link"
+              className="text-sm"
               style={{
                 border: "none",
                 background: "none",

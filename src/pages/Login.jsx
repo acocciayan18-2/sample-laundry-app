@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   browserLocalPersistence,
   setPersistence,
-   sendPasswordResetEmail,
+  sendPasswordResetEmail,
   fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import { LoginPopup } from "../modal/LoginPopup";
@@ -19,12 +19,17 @@ function Login() {
   const [popupType, setPopupType] = useState(""); // "success" or "error"
   const [showPassword, setShowPassword] = useState(false); // 🔹 Toggle password
   const [loginEmail, setLoginEmail] = useState("");
-const [loginPassword, setLoginPassword] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-   const [showForgotPopup, setShowForgotPopup] = useState(false);
+  const [showForgotPopup, setShowForgotPopup] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
   const [resetError, setResetError] = useState(""); // 🔹 add this
+
+  const [loginLoading, setLoginLoading] = useState(false);
+
+
+
 
   const showPopup = (msg, type) => {
     setPopupMessage(msg);
@@ -32,37 +37,37 @@ const [loginPassword, setLoginPassword] = useState("");
     setTimeout(() => setPopupMessage(""), 3000);
   };
 
-
-
-const handleForgotPassword = async () => {
-  if (!resetEmail.trim()) {
-    showPopup("Please enter your email.", "error");
-    return;
-  }
-
-  try {
-    setResetLoading(true);
-
-    await sendPasswordResetEmail(auth, resetEmail);
-
-    showPopup("Reset link sent! Check your email.", "success");
-    setShowForgotPopup(false); // optional: close popup after success
-    setResetEmail("");
-  } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      showPopup("❌ This email is not registered.", "error");
-    } else {
-      showPopup("❌ " + error.message, "error");
+  const handleForgotPassword = async () => {
+    if (!resetEmail.trim()) {
+      showPopup("Please enter your email.", "error");
+      return;
     }
-  } finally {
-    setResetLoading(false);
-  }
-};
 
+    try {
+      setResetLoading(true);
+
+      await sendPasswordResetEmail(auth, resetEmail);
+
+      showPopup("Reset link sent! Check your email.", "success");
+      setShowForgotPopup(false); // optional: close popup after success
+      setResetEmail("");
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        showPopup("❌ This email is not registered.", "error");
+      } else {
+        showPopup("❌ " + error.message, "error");
+      }
+    } finally {
+      setResetLoading(false);
+    }
+  };
 
   // 🔹 Email/Password login
- const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
   e.preventDefault();
+
+  if (loginLoading) return; // ✅ prevent double clicks
+  setLoginLoading(true);
 
   try {
     await setPersistence(auth, browserLocalPersistence);
@@ -90,7 +95,9 @@ const handleForgotPassword = async () => {
   } catch (error) {
     console.error(error);
     showPopup("Invalid email or password.", "error");
-    setLoginPassword(""); // clear password
+    setLoginPassword("");
+  } finally {
+    setLoginLoading(false); // ✅ re-enable button
   }
 };
 
@@ -103,12 +110,20 @@ const handleForgotPassword = async () => {
         onClose={() => setPopupMessage("")}
       />
 
-      <div className="card">
-        <div className="text-center mb-3">
-          <img src="/images/laundrylogo.jpg" alt="Logo" className="img-fluid" />
+      <div className="login-card">
+        <div className="flex justify-center items-center w-full">
+          <div className="mb-3 flex justify-center items-center w-14 h-14 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl  overflow-hidden">
+            <img
+              src="/images/lolafeslaundry-logo-transparent.png"
+              alt="Logo"
+              className="max-w-full max-h-full"
+            />
+          </div>
         </div>
 
-        <h3 className="text-center">Welcome to Lola Fe's Laundry PH</h3>
+        <h3 className="text-center text-3xl font-extrabold text-gray-800 mb-1">
+          Welcome to Lola Fe's Laundry&nbsp;Shop
+        </h3>
         <p className="text-center">Log in to continue</p>
 
         <form onSubmit={handleLogin}>
@@ -160,15 +175,15 @@ const handleForgotPassword = async () => {
                 />
               </svg>
               <input
-                  type={showPassword ? "text" : "password"}
-                  id="login-password"
-                  className="input"
-                  placeholder="********"
-                  required
-                  autoComplete="off"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                />
+                type={showPassword ? "text" : "password"}
+                id="login-password"
+                className="input"
+                placeholder="********"
+                required
+                autoComplete="off"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+              />
 
               <button
                 type="button"
@@ -206,38 +221,65 @@ const handleForgotPassword = async () => {
 
             {/* Forgot Password button (right aligned) */}
             <div className="text-end mt-2">
-              <button  onClick={() => setShowForgotPopup(true)} type="button" className="btn-link" style={{ border: "none", background: "none", color: "#0d6efd", cursor: "pointer" }}>
+              <button
+                onClick={() => setShowForgotPopup(true)}
+                type="button"
+                className="text-sm"
+                style={{
+                  border: "none",
+                  background: "none",
+                  color: "#0d6efd",
+                  cursor: "pointer",
+                }}
+              >
                 Forgot Password?
               </button>
             </div>
 
             {showForgotPopup && (
-             <ForgotPassword
-              resetEmail={resetEmail}
-              setResetEmail={setResetEmail}
-              resetLoading={resetLoading}
-              handleForgotPassword={handleForgotPassword}
-              setShowForgotPopup={setShowForgotPopup}
-              errorMessage={resetError} // 🔹 pass error state
-            />
-              )}
-
+              <ForgotPassword
+                resetEmail={resetEmail}
+                setResetEmail={setResetEmail}
+                resetLoading={resetLoading}
+                handleForgotPassword={handleForgotPassword}
+                setShowForgotPopup={setShowForgotPopup}
+                errorMessage={resetError} // 🔹 pass error state
+              />
+            )}
           </div>
 
-          <button type="submit" className="btn-primary">
-            Log in
-          </button>
+         <button
+  type="submit"
+  disabled={loginLoading}
+  className={`w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium px-4 py-2 rounded shadow cursor-pointer ${
+    loginLoading ? "opacity-50 cursor-not-allowed" : ""
+  }`}
+>
+  {loginLoading ? "Logging in..." : "Log in"}
+</button>
+
         </form>
 
-        <div className="footer-links mt-4 d-flex gap-3">
-          <p className="text-body">
-            Don't have an account? <Link to="/signup">Sign up</Link>
+        <div className="footer-links mt-3 d-flex  gap-3">
+          <p className="text-sm">
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              style={{
+                border: "none",
+                background: "none",
+                color: "#0d6efd",
+                cursor: "pointer",
+              }}
+              className="text-sm"
+            >
+              Sign up
+            </Link>
           </p>
         </div>
       </div>
-    
+
       {/* 🔹 Forgot Password Popup */}
-      
     </div>
   );
 }

@@ -2,9 +2,18 @@
 .login-popup-con {
   min-width: 320px;
   display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+  justify-content: center !important; /* horizontal centering */
+  align-items: flex-start !important;  /* align to top */
+  padding-top: 15px; /* optional spacing from top */
+  position: fixed; /* stay on top of screen */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* make sure it’s above other content */
 }
+
+
+
 
 .login-popup-con > div {
   width: auto;
@@ -29,5 +38,5 @@
 .login-btn-close-popup:hover { opacity: 1; }
 .login-btn-close-popup:focus { outline: none !important; box-shadow: none !important; }
 
-.login-popup.success { border: 2px solid green; color: green; }
-.login-popup.error   { border: 2px solid red;   color: red; }
+/* .login-popup.success { border: 2px solid green; color: green; }
+.login-popup.error   { border: 2px solid red;   color: red; } */

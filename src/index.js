@@ -6,6 +6,11 @@ import NewOrder from './pages/NewOrder';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import "./style/index.css"
+import { register } from './other/serviceWorker';
+register();
+
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
